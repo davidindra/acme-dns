@@ -18,7 +18,7 @@ require (
 	github.com/klauspost/cpuid/v2 v2.2.4 // indirect
 	github.com/lib/pq v1.10.7
 	github.com/mattn/go-colorable v0.1.12 // indirect
-	github.com/mattn/go-sqlite3 v1.14.16
+	github.com/mattn/go-sqlite3 v1.14.19
 	github.com/mholt/acmez v1.1.0
 	github.com/miekg/dns v1.1.51
 	github.com/moul/http2curl v1.0.0 // indirect
