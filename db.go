@@ -253,8 +253,9 @@ func (d *acmedb) GetTXTForDomain(domain string) ([]string, error) {
 	defer d.Mutex.Unlock()
 	domain = sanitizeString(domain)
 	var txts []string
+	timeborder := (time.Now().Unix() - (10*60))
 	getSQL := `
-	SELECT Value FROM txt WHERE Subdomain=$1 LIMIT $2
+	SELECT Value FROM txt WHERE Subdomain=$1 AND LastUpdate>$2 LIMIT $3
 	`
 	if Config.Database.Engine == "sqlite3" {
 		getSQL = getSQLiteStmt(getSQL)
@@ -265,7 +266,7 @@ func (d *acmedb) GetTXTForDomain(domain string) ([]string, error) {
 		return txts, err
 	}
 	defer sm.Close()
-	rows, err := sm.Query(domain, Config.General.TxtRecordsCount)
+	rows, err := sm.Query(domain, timeborder, Config.General.TxtRecordsCount)
 	if err != nil {
 		return txts, err
 	}
